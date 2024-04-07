@@ -5,16 +5,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strconv"
 )
 
-func SendRequest(username string, email string, password string, age int) (results [] string, err error) {
+func SendRequest(username string, email string, password string, age string) (results []string, err error) {
 	// So'rov jo'natish uchun JSON formatdagi ma'lumot yaratish
 	requestBody, err := json.Marshal(map[string]string{
 		"username": username,
 		"email":    email,
 		"password": password,
-		"age": strconv.Itoa(age),
+		"age":      age,
 	})
 	// Agar request (JSON formatdagi ma'lumot) yaratishda error chiqsa . . .
 	if err != nil {

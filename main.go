@@ -66,16 +66,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// Deferni ham ishlatdim, bundan oldin init ni ichida ishlatayotgandim, lekin init tugashi bilan
-	// database yopilib qolyatganakan, shuning uchun main ni oxirida yopiladigan qildim
-	defer db.Close()
 
 	// requestlar bajarilishi uchun Gin dan foydalandim
 	r := gin.Default()
 
 	// shu portga web-reques ya'ni so'rov jo'natamiz, ya'ni service shu end-point ga murojat qiladi
 	r.POST("/register", func(c *gin.Context) {
-		registerservice.RegisterUser(c, db)
+		registerservice.RegisterService(c, db)
 	})
 
 	// Localhost dagi port, dastur shu portda run bo'ladi
