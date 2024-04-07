@@ -9,9 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var db *sql.DB
-
-func RegisterUser(c *gin.Context) {
+func RegisterUser(c *gin.Context, db *sql.DB) {
 	// yangi userni yaratyabmiz
 	var user model.User
 	// c *gin.Context ichida bizga kereli ma'lumotlar JSON formatda keladi, shuni Go dagi structga o'giramiz
