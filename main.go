@@ -26,18 +26,16 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	registerservice "hmw12/registerService"
-	validation "hmw12/validationService"
 	"log"
+
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
-	sendRequest "hmw12/requestSender"
 )
 
 var db *sql.DB
 
-func init() {
+func main() {
 	var err error
 	db, err = sql.Open("postgres", "host=localhost port=5432 user=prodonik dbname=user_registration_hmw12 password=Dost0n1k sslmode=disable")
 	/*
@@ -68,6 +66,9 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	// Deferni ham ishlatdim, bundan oldin init ni ichida ishlatayotgandim, lekin init tugashi bilan
+	// database yopilib qolyatganakan, shuning uchun main ni oxirida yopiladigan qildim
+	defer db.Close()
 
 	// requestlar bajarilishi uchun Gin dan foydalandim
 	r := gin.Default()
@@ -79,67 +80,4 @@ func init() {
 
 	// Localhost dagi port, dastur shu portda run bo'ladi
 	r.Run(":7777")
-}
-
-func main() {
-	// Deferni ham ishlatdim, bundan oldin init ni ichida ishlatayotgandim, lekin init tugashi bilan
-	// database yopilib qolyatganakan, shuning uchun main ni oxirida yopiladigan qildim
-	defer db.Close()
-	status := 1
-	usernames := make(map[string]bool)
-
-	for status == 1 {
-		errors := [] error {}
-		var username string
-		fmt.Print("username kiriting : ")
-		fmt.Scan(&username)
-		if err := validation.ValidateUsername(username, usernames); err != nil {
-			errors = append(errors, err)
-		} else {
-			usernames[username] = true
-		}
-
-
-		var email string
-		fmt.Print("e-mail kiriting : ")
-		fmt.Scan(&email)
-		if err := validation.ValidateEmail(email); err != nil {
-			errors = append(errors, err)
-		}
-
-
-		var password string
-		fmt.Print("parol kiriting : ")
-		fmt.Scan(&password)
-
-
-		var age int
-		fmt.Print("yosh kiriting : ")
-		fmt.Scan(&age)
-		if err := validation.ValidateAge(age); err != nil {
-			errors = append(errors, err)
-		}
-
-		if len(errors) > 0 {
-			for _, err := range errors {
-				fmt.Println(err)
-			}
-			fmt.Println()
-		} else {
-			results, err := sendRequest.SendRequest(username, email, password, age)
-			if err != nil {
-				fmt.Println(err)
-			} else {
-				for _, r := range results {
-					fmt.Println(r)
-				}
-				fmt.Println()
-			}
-		}
-
-		fmt.Print("Yana kimnidir ro'yhatdan o'tkazasizmi ? : 1 -> ha / 2 -> yo'q : ")
-		fmt.Scan(& status)
-	}
-
-	fmt.Println("Dasturdan foydalanganingiz uchun raxmat !")
 }
