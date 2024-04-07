@@ -26,12 +26,9 @@ package main
 
 import (
 	"database/sql"
-	"errors"
-	"fmt"
 	registerService "hmw12/registerService"
 	"log"
-	"strings"
-
+	validation "hmw12/validationService"
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 )
@@ -85,6 +82,6 @@ func init() {
 }
 
 func main() {
-
+	
 }
 
