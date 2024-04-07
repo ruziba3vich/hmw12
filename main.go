@@ -26,14 +26,17 @@ package main
 
 import (
 	"database/sql"
+	"errors"
+	"fmt"
 	registerService "hmw12/registerService"
 	"log"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 )
 
-
+var usernames map[string] bool = make(map[string]bool)
 
 var db *sql.DB
 
