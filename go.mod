@@ -1,4 +1,4 @@
-module hmw12
+module github.com/ruziba3vich/homework12
 
 go 1.22.2
 
