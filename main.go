@@ -26,8 +26,9 @@ package main
 
 import (
 	"database/sql"
-	registerservice "hmw12/registerService"
 	"log"
+
+	registerservice "github.com/ruziba3vich/hmwnmb12/registerService"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"

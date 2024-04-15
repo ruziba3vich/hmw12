@@ -4,10 +4,11 @@ import (
 	"bufio"
 	"database/sql"
 	"fmt"
-	model "hmw12/models"
 	"net/http"
 	"os"
 	"strings"
+
+	model "github.com/ruziba3vich/hmwnmb12/models"
 
 	"github.com/gin-gonic/gin"
 )
