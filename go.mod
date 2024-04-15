@@ -1,4 +1,4 @@
-module github.com/ruziba3vich/hmw12
+module hmw12
 
 go 1.22.2
 
